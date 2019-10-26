@@ -20,7 +20,7 @@ public class FoldPlayer implements Player {
 
     @Override
     public String getStuNum() {
-        return "2015211876";
+        return "2018233333";
     }
 
     @Override

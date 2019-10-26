@@ -19,7 +19,7 @@ public interface Player {
     String getName();
 
     /**
-     * 实现这个方法，返回你的学号 eg：2015211876
+     * 实现这个方法，返回你的学号 eg：2018233333
      * @return
      */
     String getStuNum();

@@ -19,7 +19,7 @@ public class RaiseFatherPlayer implements Player {
 
     @Override
     public String getStuNum() {
-        return "2015211876";
+        return "2019213333";
     }
 
     @Override

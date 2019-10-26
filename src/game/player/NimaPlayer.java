@@ -51,7 +51,7 @@ public class NimaPlayer implements Player {
 
     @Override
     public String getStuNum() {
-        return "2015211876";
+        return "2018233333";
     }
 
     private boolean isSameColor(List<Poker> pokers) {
