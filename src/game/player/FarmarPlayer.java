@@ -10,12 +10,12 @@ import java.util.List;
 public class FarmarPlayer implements Player {
     @Override
     public String getName() {
-        return "崇文路口麻将王 ";
+        return "马欣均 ";
     }
 
     @Override
     public String getStuNum() {
-        return "1999213234";
+        return "2018213234";
     }
 
     @Override
