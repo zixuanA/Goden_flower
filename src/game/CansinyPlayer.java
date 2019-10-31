@@ -31,8 +31,8 @@ public class CansinyPlayer implements Player {
             return 3 * moneyYouNeedToPayLeast;
         if(isStraight(pokers))
             return (int)((2.5 * moneyYouNeedToPayLeast));
-//        if(isPair(pokers) && time>=20)
-//            return (int) (1.3 * moneyYouNeedToPayLeast) < 3 * moneyOnDesk ? (int) (1.3 * moneyYouNeedToPayLeast) : moneyYouNeedToPayLeast;
+        if(isPair(pokers) && pokers.get(0).getPoint().getNum() + pokers.get(1).getPoint().getNum() + pokers.get(2).getPoint().getNum() >= 35)
+            return (int) (1.3 * moneyYouNeedToPayLeast) ;
         if(moneyYouNeedToPayLeast == 100 && round == 0)
             return moneyYouNeedToPayLeast;
         return 0;
