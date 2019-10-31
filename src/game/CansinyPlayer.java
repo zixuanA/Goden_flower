@@ -30,10 +30,10 @@ public class CansinyPlayer implements Player {
         if (isSameColor(pokers) || isSameColorStraight(pokers) || isSamePoint(pokers))
             return 3 * moneyYouNeedToPayLeast;
         if(isStraight(pokers))
-            return (int)((2.3 * moneyYouNeedToPayLeast));
-        if(isPair(pokers) && time>=20)
-            return (int) (1.3 * moneyYouNeedToPayLeast) < 3 * moneyOnDesk ? (int) (1.3 * moneyYouNeedToPayLeast) : moneyYouNeedToPayLeast;
-        if(moneyYouNeedToPayLeast == 100   && lastPerson == 2)
+            return (int)((2.5 * moneyYouNeedToPayLeast));
+//        if(isPair(pokers) && time>=20)
+//            return (int) (1.3 * moneyYouNeedToPayLeast) < 3 * moneyOnDesk ? (int) (1.3 * moneyYouNeedToPayLeast) : moneyYouNeedToPayLeast;
+        if(moneyYouNeedToPayLeast == 100 && round == 0)
             return moneyYouNeedToPayLeast;
         return 0;
     }
