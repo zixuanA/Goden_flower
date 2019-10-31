@@ -9,7 +9,7 @@ import java.util.List;
 public class YourFatherPlayet implements Player {
     @Override
     public String getName() {
-        return "李霸";
+        return "吴世浩";
     }
 
     @Override
