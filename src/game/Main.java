@@ -1,5 +1,7 @@
 package game;
 
+import game.player.RedPlayer;
+
 import java.io.File;
 import java.util.*;
 
