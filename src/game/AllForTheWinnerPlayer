@@ -17,18 +17,21 @@ public class AllForTheWinnerPlayer implements Player {
     public int bet(int time, int round, int lastPerson, int moneyOnDesk, int moneyYouNeedToPayLeast, List<Poker> pokers) {
         Collections.sort(pokers);
         if (isSameColor(pokers) )
-            return (int) ((2.5 - round/5) * moneyYouNeedToPayLeast) < 2.5 * moneyOnDesk ? (int) ((2.5 - round/5) * moneyYouNeedToPayLeast)   :
-                                                                                       ((2 - round/5) * moneyYouNeedToPayLeast)    ;
+            return   lastPerson <= 4 ? (int) ((3 - round/20) * moneyYouNeedToPayLeast)    :
+                                                    ((3 - round/10) * moneyYouNeedToPayLeast)    ;
         if ( (isSameColorStraight(pokers) || isSamePoint(pokers))  )
             return  3*moneyYouNeedToPayLeast;//这不直接梭哈？还想什么？
-        if (isPair(pokers))
-            return  round <= 4 ? (int) ((2.8-lastPerson/5))*moneyYouNeedToPayLeast : (int)1.2*moneyYouNeedToPayLeast;
-
+        for (Poker p : pokers) {
+            if (isPair(pokers) && p.getPoint().getNum() >= 34)
+                return round <= 3 ? (int) ((2.8 - lastPerson / 5)) * moneyYouNeedToPayLeast : (int) 2.2 * moneyYouNeedToPayLeast;
+        }
         if (isStraight(pokers))
-            return round <= 3 ?   ((3-lastPerson/5))*moneyYouNeedToPayLeast : moneyYouNeedToPayLeast;
+            return round <= 4 ?   ((3-lastPerson/5))*moneyYouNeedToPayLeast : 2*moneyYouNeedToPayLeast;
         for (Poker p : pokers){
-            if ( p.getPoint().getNum() >= 12)
-                return lastPerson <= 4 ? moneyYouNeedToPayLeast : (int) ((1.6-lastPerson/10))*moneyYouNeedToPayLeast;
+            if ( p.getPoint().getNum() >= 32)
+                return lastPerson <= 3 ? moneyYouNeedToPayLeast : (int) ((1.6-lastPerson/10))*moneyYouNeedToPayLeast;
+            if(moneyYouNeedToPayLeast == 100 && round == 0)
+                return moneyYouNeedToPayLeast;
         }
         return 0;
     }
