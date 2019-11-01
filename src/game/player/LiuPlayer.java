@@ -13,7 +13,7 @@ public class LiuPlayer implements Player {
 
     @Override
     public String getStuNum() {
-        return "2019213520";
+        return "2019213521";
     }
 
     @Override
