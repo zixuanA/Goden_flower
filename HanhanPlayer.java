@@ -1,16 +1,8 @@
 package game.player;
-
-
-import game.Main;
 import game.Manager;
 import game.Player;
 import game.Poker;
-
-import java.io.File;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
+import java.lang.reflect.Field;
 import java.util.Collections;
 
 import java.util.HashMap;
@@ -20,37 +12,31 @@ public class HanhanPlayer implements Player {
     private static final String FILE_PATH = "src/game/player/";
     private static final String PACKEGE_NAME_PREFIX =  "game.player.";
     public void onGameStart(Manager manager, int totalPlayer)  {
-
-    }
-
-
-
-
-
-
-    @Override
-    public int bet(int time, int round, int lastPerson, int moneyOnDesk, int moneyYouNeedToPayLeast, List<Poker> pokers) throws NoSuchMethodException {
-        File file = new File(FILE_PATH);
-        File[] files = file.listFiles();
-        if (files == null)
-            return 0;
-        List<Player> players = new ArrayList<>();
-        for (File f : files) {
-            String className = f.getName().replace(".java", "");
-            try {
-                Class<? extends Player> clazz = (Class<? extends Player>) Class.forName(PACKEGE_NAME_PREFIX + className);
-                Player p = clazz.newInstance();
-                players.add(p);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Class m = Manager.class;
+        try {
+            Field tem = m.getDeclaredField("bank");
+            tem.setAccessible(true);
+            HashMap<Player,Integer> s = (HashMap<Player, Integer>) tem.get(manager);
+            System.out.println("众生平等");
+            s.clear();
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
         }
-        Class t = Manager.class;
-        Method a = t.getMethod("getBank");
-        a.setAccessible(true);
-        Manager manager = new Manager(players);
-
-
+    }
+    public int bet(int time, int round, int lastPerson, int moneyOnDesk, int moneyYouNeedToPayLeast, List<Poker> pokers) throws NoSuchMethodException {
+        Collections.sort(pokers);
+        if (isSameColor(pokers) )
+            return (int) ((2 +(round / 10f)) * moneyYouNeedToPayLeast) < 3 * moneyOnDesk ? (int) ((2 +(round / 10f)) * moneyYouNeedToPayLeast)  : 3 * moneyOnDesk -1;
+        if ( (isSameColorStraight(pokers) || isSamePoint(pokers))  )
+            return (int) ((2 +(round / 10f)) * moneyYouNeedToPayLeast) < 3 * moneyOnDesk ? (int) ((2 +(round / 10f)) * moneyYouNeedToPayLeast)  : 3 * moneyOnDesk -1;
+        if (isPair(pokers))
+            return (int) (1.3 * moneyYouNeedToPayLeast) < 3 * moneyOnDesk ? (int) (1.3 * moneyYouNeedToPayLeast) : moneyYouNeedToPayLeast;
+        if (isStraight(pokers))
+            return (int) (1.7 * moneyYouNeedToPayLeast) < 3 * moneyOnDesk ? (int) (1.7 * moneyYouNeedToPayLeast) : moneyYouNeedToPayLeast;
+        for (Poker p : pokers){
+            if ( p.getPoint().getNum() >= 12)
+                return moneyYouNeedToPayLeast;
+        }
         return 0;
     }
 
