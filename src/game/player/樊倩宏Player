@@ -1,5 +1,7 @@
 package game.player;
 
+
+import game.Manager;
 import game.Player;
 import game.Poker;
 import java.util.List;
@@ -10,30 +12,30 @@ import java.util.List;
  * Created for : Games.
  * Enjoy it !!!!
  */
-public class CallGodPlayer implements Player {
+public class 樊倩宏Player implements Player {
     @Override
     public String getName() {
-        return "小塞翁";
+        return "樊倩宏";
     }
 
     @Override
     public String getStuNum() {
-        return "209211233";
+        return "209211292";
     }
 
     @Override
-    public void onGameStart(game.Manager manager, int totalPlayer) {
+    public void onGameStart(Manager manager, int totalPlayer) {
 
     }
 
     @Override
     public int bet(int time, int round, int lastPerson, int moneyOnDesk, int moneyYouNeedToPayLeast, List<Poker> pokers) {
-        return moneyYouNeedToPayLeast;
+        //妈妈说不要赌博，我要弃牌
+        return 0;
     }
 
     @Override
-    public void onResult(int time, boolean isWin, List<game.Poker> pokers) {
+    public void onResult(int time, boolean isWin, List<Poker> pokers) {
 
     }
 }
-
