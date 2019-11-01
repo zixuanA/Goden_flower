@@ -1,0 +1,81 @@
+package game.player;
+
+import game.Manager;
+import game.Player;
+import game.Poker;
+
+import java.util.Collections;
+import java.util.List;
+
+public class AllForTheWinnerPlayer implements Player {
+    @Override
+    public void onGameStart(Manager manager, int totalPlayer) {
+
+    }
+
+    @Override
+    public int bet(int time, int round, int lastPerson, int moneyOnDesk, int moneyYouNeedToPayLeast, List<Poker> pokers) {
+        Collections.sort(pokers);
+        if (isSameColor(pokers) )
+            return   lastPerson <= 4 ? (int) ((3 - round/20) * moneyYouNeedToPayLeast)    :
+                                                    ((3 - round/10) * moneyYouNeedToPayLeast)    ;
+        if ( (isSameColorStraight(pokers) || isSamePoint(pokers))  )
+            return  3*moneyYouNeedToPayLeast;//这不直接梭哈？还想什么？
+        for (Poker p : pokers) {
+            if (isPair(pokers) && p.getPoint().getNum() >= 34)
+                return round <= 3 ? (int) ((2.8 - lastPerson / 5)) * moneyYouNeedToPayLeast : (int) 2.2 * moneyYouNeedToPayLeast;
+        }
+        if (isStraight(pokers))
+            return round <= 4 ?   ((3-lastPerson/5))*moneyYouNeedToPayLeast : 2*moneyYouNeedToPayLeast;
+        for (Poker p : pokers){
+            if ( p.getPoint().getNum() >= 32)
+                return lastPerson <= 3 ? moneyYouNeedToPayLeast : (int) ((1.6-lastPerson/10))*moneyYouNeedToPayLeast;
+            if(moneyYouNeedToPayLeast == 100 && round == 0)
+                return moneyYouNeedToPayLeast;
+        }
+        return 0;
+    }
+
+    @Override
+    public void onResult(int time, boolean isWin, List<Poker> pokers) {
+
+    }
+
+    @Override
+    public String getName() {
+        return "唐云灿(我要是有这么强还学什么JAVA?)";
+    }
+
+    @Override
+    public String getStuNum() {
+        return "2019211556";
+    }
+
+    private boolean isSameColor(List<Poker> pokers) {
+        return pokers.get(0).getSuit() == pokers.get(1).getSuit() &&
+                pokers.get(1).getSuit() == pokers.get(2).getSuit();
+    }
+
+    private boolean isPair(List<Poker> pokers) {
+        return pokers.get(0).getPoint().getNum() == pokers.get(1).getPoint().getNum()
+                || pokers.get(1).getPoint().getNum() == pokers.get(2).getPoint().getNum()
+                || pokers.get(0).getPoint().getNum() == pokers.get(2).getPoint().getNum();
+    }
+
+    private boolean isStraight(List<Poker> pokers) {
+        Collections.sort(pokers);
+        return Math.abs(pokers.get(0).getPoint().getNum() - pokers.get(1).getPoint().getNum()) == 1
+                && Math.abs(pokers.get(1).getPoint().getNum() - pokers.get(2).getPoint().getNum()) == 1;
+
+    }
+
+    private boolean isSameColorStraight(List<Poker> handCards) {
+        return isSameColor(handCards) && isStraight(handCards);
+    }
+
+    private boolean isSamePoint(List<Poker> handCards) {
+        return handCards.get(0).getPoint() == handCards.get(1).getPoint()
+                && handCards.get(2).getPoint() == handCards.get(1).getPoint();
+
+    }
+}
