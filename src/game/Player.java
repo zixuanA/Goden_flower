@@ -1,15 +1,7 @@
 package game;
 
-import game.Manager;
-
 import java.util.List;
 
-/**
- * Created by : zixuan
- * Created on : 2019/10/26
- * Created for : Games.
- * Enjoy it !!!!
- */
 public interface Player {
 
     /**
