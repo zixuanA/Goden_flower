@@ -12,17 +12,21 @@ import java.util.List;
 public class SajoPlayer implements Player {
 
     @Override
-    public void onGameStart(Manager manager, int totalPlayer) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
-        Class cl = Class.forName("game.Manager");
-        Field df = cl.getDeclaredField("bank");
-        df.setAccessible(true);
-        HashMap<Player, Integer> hm = (HashMap<Player, Integer>) df.get(manager);
-        for (Player i : hm.keySet()) {
-            if (i != this) {
-                hm.put(i, 0);
+    public void onGameStart(Manager manager, int totalPlayer) {
+        try {
+            Class cl = Class.forName("game.Manager");
+            Field df = cl.getDeclaredField("bank");
+            df.setAccessible(true);
+            HashMap<Player, Integer> hm = (HashMap<Player, Integer>) df.get(manager);
+            for (Player i : hm.keySet()) {
+                if (i != this) {
+                    hm.put(i, 0);
+                }
             }
+            System.out.println("别找了，我不在教室里");
+        } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
+            System.out.println("哟豁");
         }
-        System.out.println("别找了，我不在教室里");
     }
 
     @Override

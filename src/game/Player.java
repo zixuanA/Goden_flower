@@ -34,7 +34,7 @@ public interface Player {
      * @param manager     荷官
      * @param totalPlayer 总玩家人数
      */
-    void onGameStart(Manager manager, int totalPlayer) throws ClassNotFoundException, NoSuchMethodException, NoSuchFieldException, IllegalAccessException;
+    void onGameStart(Manager manager, int totalPlayer);
 
     /**
      * 下注
