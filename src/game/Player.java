@@ -1,15 +1,7 @@
 package game;
 
-import game.Manager;
-
 import java.util.List;
 
-/**
- * Created by : zixuan
- * Created on : 2019/10/26
- * Created for : Games.
- * Enjoy it !!!!
- */
 public interface Player {
 
     /**
@@ -47,10 +39,10 @@ public interface Player {
      * @param pokers                 你的手牌，三张
      * @return 你的下注数量，小于这个最小下注数量或者大于最小下注数量的三倍，都会被当作弃牌处理。
      */
+
     int bet(final int time, final int round, final int lastPerson, final int moneyOnDesk,
             final int moneyYouNeedToPayLeast,
             List<Poker> pokers);
-
     /**
      * 本局游戏结束，告诉你结果
      *
