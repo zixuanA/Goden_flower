@@ -25,9 +25,9 @@ public class Lv2Player implements Player {
         } else if (isSameColorStraight(pokers)) {
             return 3 * moneyYouNeedToPayLeast;
         } else if (isSameColor(pokers)) {
-            return moneyYouNeedToPayLeast * 5/2;
+            return moneyYouNeedToPayLeast * 3;
         } else if (isPair(pokers)) {
-            return moneyYouNeedToPayLeast * 2;
+            return moneyYouNeedToPayLeast * 3;
         } else if((pokers.get(0).getPoint().getNum()+pokers.get(1).getPoint().getNum()+pokers.get(2).getPoint().getNum())>=23){
             return moneyYouNeedToPayLeast;
         }
