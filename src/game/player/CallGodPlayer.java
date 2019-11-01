@@ -13,12 +13,12 @@ import java.util.List;
 public class CallGodPlayer implements Player {
     @Override
     public String getName() {
-        return "跟注帝";
+        return "小塞翁";
     }
 
     @Override
     public String getStuNum() {
-        return "2018233333";
+        return "209211233";
     }
 
     @Override
