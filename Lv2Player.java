@@ -28,9 +28,10 @@ public class Lv2Player implements Player {
             return moneyYouNeedToPayLeast * 5/2;
         } else if (isPair(pokers)) {
             return moneyYouNeedToPayLeast * 2;
-        } else {
-            return 0;
+        } else if((pokers.get(0).getPoint().getNum()+pokers.get(1).getPoint().getNum()+pokers.get(2).getPoint().getNum())>=23){
+            return moneyYouNeedToPayLeast;
         }
+        else{return  0;}
     }
     public void onResult(int time, boolean isWin, List<game.Poker> pokers) {
     }
