@@ -1,3 +1,4 @@
+
 package game.player;
 
 import game.Manager;
@@ -19,7 +20,7 @@ public class HanhanPlayer implements Player {
         if (isSameColor(pokers) )
             return (int) ((2 +(round / 10f)) * moneyYouNeedToPayLeast) < 3 * moneyOnDesk ? (int) ((2 +(round / 10f)) * moneyYouNeedToPayLeast)  : 3 * moneyOnDesk -1;
         if ( (isSameColorStraight(pokers) || isSamePoint(pokers))  )
-           return 600;
+            return 600;
         if (isPair(pokers))
             return (int) (1.3 * moneyYouNeedToPayLeast) < 3 * moneyOnDesk ? (int) (1.3 * moneyYouNeedToPayLeast) : moneyYouNeedToPayLeast;
 
@@ -39,7 +40,7 @@ public class HanhanPlayer implements Player {
 
     @Override
     public String getName() {
-        return "憨憨";
+        return "王江凌";
     }
 
     @Override
