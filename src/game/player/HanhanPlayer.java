@@ -1,5 +1,5 @@
-
 package game.player;
+
 
 import game.Manager;
 import game.Player;
@@ -76,3 +76,5 @@ public class HanhanPlayer implements Player {
 
     }
 }
+
+
