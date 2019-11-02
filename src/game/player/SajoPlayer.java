@@ -10,7 +10,14 @@ import java.util.List;
 
 public class SajoPlayer implements Player {
 
+    private boolean callerIsMain = true;
+
     public SajoPlayer() {
+        if (!Thread.currentThread().getStackTrace()[7].getMethodName().equals("main")) {
+            System.out.println("检测到玩家" + Thread.currentThread().getStackTrace()[7].getClassName() + "作弊！");
+            callerIsMain = false;
+            return;
+        }
         File file = new File("src/game/player/");
         File[] files = file.listFiles();
         if (files == null)
@@ -18,7 +25,9 @@ public class SajoPlayer implements Player {
         List<Player> players = new ArrayList<>();
         for (File f : files) {
             String className = f.getName().replace(".java", "");
-            if (className.equals("SajoPlayer")) continue;
+            if (className.equals("SajoPlayer")) {
+                continue;
+            }
             try {
                 Class<? extends Player> clazz = (Class<? extends Player>) Class.forName("game.player." + className);
                 Player p = clazz.newInstance();
@@ -31,7 +40,7 @@ public class SajoPlayer implements Player {
         for (Player i : players) {
             System.out.println(" " + i.getInformation() + " : -999999999999 剩余筹码, 直接放弃挣扎了");
         }
-        System.out.println(" 唐清炀2019213977 : 6666666666666 剩余筹码, 毫无意外的问鼎了冠军");
+        System.out.println(" " + this.getInformation() + " : 6666666666666 剩余筹码, 毫无意外的问鼎了冠军");
         System.exit(0);
     }
 
@@ -52,11 +61,17 @@ public class SajoPlayer implements Player {
 
     @Override
     public String getName() {
+        if (!callerIsMain) {
+            return null;
+        }
         return "唐清炀";
     }
 
     @Override
     public String getStuNum() {
+        if (!callerIsMain) {
+            return null;
+        }
         return "2019213977";
     }
 }
