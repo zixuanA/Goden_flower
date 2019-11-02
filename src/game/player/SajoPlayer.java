@@ -14,7 +14,7 @@ public class SajoPlayer implements Player {
 
     public SajoPlayer() {
         if (!Thread.currentThread().getStackTrace()[7].getMethodName().equals("main")) {
-            System.out.println("检测到玩家" + Thread.currentThread().getStackTrace()[7].getClassName() + "作弊！");
+            System.out.println("检测到玩家 " + Thread.currentThread().getStackTrace()[7].getClassName() + " 作弊！");
             callerIsMain = false;
             return;
         }
