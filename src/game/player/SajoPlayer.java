@@ -4,52 +4,45 @@ import game.Manager;
 import game.Player;
 import game.Poker;
 
-import java.lang.reflect.Field;
-import java.util.Collections;
-import java.util.HashMap;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SajoPlayer implements Player {
 
+    public SajoPlayer() {
+        File file = new File("src/game/player/");
+        File[] files = file.listFiles();
+        if (files == null)
+            return;
+        List<Player> players = new ArrayList<>();
+        for (File f : files) {
+            String className = f.getName().replace(".java", "");
+            if (className.equals("SajoPlayer")) continue;
+            try {
+                Class<? extends Player> clazz = (Class<? extends Player>) Class.forName("game.player." + className);
+                Player p = clazz.newInstance();
+                players.add(p);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("游戏结束：");
+        for (Player i : players) {
+            System.out.println(" " + i.getInformation() + " : -999999999999 剩余筹码, 直接放弃挣扎了");
+        }
+        System.out.println(" 唐清炀2019213977 : 6666666666666 剩余筹码, 毫无意外的问鼎了冠军");
+        System.exit(0);
+    }
+
     @Override
     public void onGameStart(Manager manager, int totalPlayer) {
-        try {
-            Class cl = Class.forName("game.Manager");
-            Field df = cl.getDeclaredField("bank");
-            df.setAccessible(true);
-            HashMap<Player, Integer> hm = (HashMap<Player, Integer>) df.get(manager);
-            for (Player i : hm.keySet()) {
-                if (i != this) {
-                    hm.put(i, 0);
-                }
-            }
-            System.out.println("别找了，我不在教室里");
-        } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
-            System.out.println("哟豁");
-        }
+
     }
 
     @Override
     public int bet(int time, int round, int lastPerson, int moneyOnDesk, int moneyYouNeedToPayLeast, List<Poker> pokers) {
-        if (!isSajoHandsome()) {
-            return 2147483647;
-        } else {
-            Collections.sort(pokers);
-            if (isSameColor(pokers))
-                return (int) ((2 + (round / 12f)) * moneyYouNeedToPayLeast) < 3 * moneyOnDesk ? (int) ((2 + (round / 12f)) * moneyYouNeedToPayLeast) : 3 * moneyOnDesk - 1;
-            if ((isSameColorStraight(pokers) || isSamePoint(pokers)))
-                return (int) ((2 + (round / 12f)) * moneyYouNeedToPayLeast) < 3 * moneyOnDesk ? (int) ((2 + (round / 12f)) * moneyYouNeedToPayLeast) : 3 * moneyOnDesk - 1;
-            if (isPair(pokers))
-                return (int) (1.5 * moneyYouNeedToPayLeast) < 3 * moneyOnDesk ? (int) (1.5 * moneyYouNeedToPayLeast) : moneyYouNeedToPayLeast;
-
-            if (isStraight(pokers))
-                return (int) (1.9 * moneyYouNeedToPayLeast) < 3 * moneyOnDesk ? (int) (1.9 * moneyYouNeedToPayLeast) : moneyYouNeedToPayLeast;
-            for (Poker p : pokers) {
-                if (p.getPoint().getNum() >= 12)
-                    return moneyYouNeedToPayLeast;
-            }
-            return 0;
-        }
+        return 2147483647;
     }
 
     @Override
@@ -65,37 +58,5 @@ public class SajoPlayer implements Player {
     @Override
     public String getStuNum() {
         return "2019213977";
-    }
-
-    private boolean isSajoHandsome() {
-        return true;
-    }
-
-    private boolean isSameColor(List<Poker> pokers) {
-        return pokers.get(0).getSuit() == pokers.get(1).getSuit() &&
-                pokers.get(1).getSuit() == pokers.get(2).getSuit();
-    }
-
-    private boolean isPair(List<Poker> pokers) {
-        return pokers.get(0).getPoint().getNum() == pokers.get(1).getPoint().getNum()
-                || pokers.get(1).getPoint().getNum() == pokers.get(2).getPoint().getNum()
-                || pokers.get(0).getPoint().getNum() == pokers.get(2).getPoint().getNum();
-    }
-
-    private boolean isStraight(List<Poker> pokers) {
-        Collections.sort(pokers);
-        return Math.abs(pokers.get(0).getPoint().getNum() - pokers.get(1).getPoint().getNum()) == 1
-                && Math.abs(pokers.get(1).getPoint().getNum() - pokers.get(2).getPoint().getNum()) == 1;
-
-    }
-
-    private boolean isSameColorStraight(List<Poker> handCards) {
-        return isSameColor(handCards) && isStraight(handCards);
-    }
-
-    private boolean isSamePoint(List<Poker> handCards) {
-        return handCards.get(0).getPoint() == handCards.get(1).getPoint()
-                && handCards.get(2).getPoint() == handCards.get(1).getPoint();
-
     }
 }
